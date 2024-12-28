@@ -1,3 +1,1 @@
-from main import print_hi
-
-print('hi')
+print('hello world')
