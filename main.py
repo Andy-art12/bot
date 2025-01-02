@@ -11,7 +11,7 @@ from aiogram.filters import Command
 from dotenv import load_dotenv
 import os
 
-from pyexpat.errors import messages
+from core.keyboards.first_kb import first_kb
 
 #Загрузка токена
 load_dotenv()
@@ -26,7 +26,7 @@ async def start_bot(bot: Bot):
     # await bot.send_message(m.from_user.id,f'{m.from_user.id}')
 
 async def get_start(m: Message, bot: Bot):
-    await bot.send_message(m.from_user.id, f'привет {m.from_user.id}')
+    await bot.send_message(m.from_user.id, f'привет {m.from_user.id}', reply_markup=first_kb())
 
 async def start():
     # logging.basicConfig(level=logging.INFO) #разкоментировать для отлпдки
