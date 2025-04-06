@@ -6,6 +6,8 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message
 from aiogram.client.default import DefaultBotProperties  #редактирование сообщений HTML
 from aiogram.filters import Command
+from core.handlers.solve import A, B, C, answer
+from core.utils.solve_FSM import StateForm
 
 #хранение токенов
 from dotenv import load_dotenv
@@ -27,6 +29,12 @@ async def start_bot(bot: Bot):
 
 async def get_start(m: Message, bot: Bot):
     await bot.send_message(m.from_user.id, f'привет {m.from_user.id}', reply_markup=first_kb())
+async def link(m: Message, bot: Bot):
+    await bot.send_message(m.from_user.id, f'https://aliexpress.ru/', reply_markup=first_kb())
+async def link_gdz(m: Message, bot: Bot):
+    await bot.send_message(m.from_user.id, f'📚')
+    await bot.send_message(m.from_user.id, f'https://gdz.ru/', reply_markup=first_kb())
+
 
 async def start():
     # logging.basicConfig(level=logging.INFO) #разкоментировать для отлпдки
@@ -39,6 +47,13 @@ async def start():
     dp.startup.register(start_bot)
 
     dp.message.register(get_start, Command(commands='start'))
+    dp.message.register(link, Command(commands='каталог'))
+    dp.message.register(link_gdz, F.text == 'гдз📚')
+    dp.message.register(A, Command(commands='решение'))
+    dp.message.register(B, StateForm.GET_A)
+    dp.message.register(C, StateForm.GET_B)
+    dp.message.register(answer, StateForm.GET_C)
+
     #==============================================
 
 
