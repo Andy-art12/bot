@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message
 from aiogram.client.default import DefaultBotProperties  #редактирование сообщений HTML
 from aiogram.filters import Command
-from core.handlers.solve import A, B, C, answer
+from core.handlers.solve import A, B, C, answer, choise_class
 from core.utils.solve_FSM import StateForm
 
 #хранение токенов
@@ -49,7 +49,7 @@ async def start():
     dp.message.register(get_start, Command(commands='start'))
     dp.message.register(link, Command(commands='каталог'))
     dp.message.register(link_gdz, F.text == 'гдз📚')
-    dp.message.register(A, Command(commands='решение'))
+    dp.message.register(choise_class, F.text == 'решить')
     dp.message.register(B, StateForm.GET_A)
     dp.message.register(C, StateForm.GET_B)
     dp.message.register(answer, StateForm.GET_C)
