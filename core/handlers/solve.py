@@ -4,7 +4,7 @@ from aiogram.types import Message
 from aiogram import Bot
 from core.utils.solve_FSM import StateForm
 from aiogram.fsm.context import FSMContext
-from core.keyboards.first_kb import first_kb
+from core.keyboards.basic_kb import first_kb
 from core.keyboards.grade_kb import get_inline_kb
 
 async def A(m: Message, state: FSMContext):

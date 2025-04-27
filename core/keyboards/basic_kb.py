@@ -1,5 +1,11 @@
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
+def go_back_kb():
+    kb_build = ReplyKeyboardBuilder()
+    kb_build.button(text='главная 🏠')
+    kb_build.adjust(1)
+    return kb_build.as_markup(resize_keyboard=True)
+
 def first_kb():
     kb_build = ReplyKeyboardBuilder()
     kb_build.button(text='/start')

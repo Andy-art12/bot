@@ -11,16 +11,21 @@ from aiogram.filters import Command
 from core.handlers.solve import A, B, C, answer, choise_class
 from core.utils.solve_FSM import StateForm
 
+import core.handlers.basic
+
 #хранение токенов
 from dotenv import load_dotenv
 import os
 
-from core.keyboards.first_kb import first_kb
+from core.keyboards.basic_kb import first_kb
 
 #Загрузка токена
 load_dotenv()
 token = os.getenv('TOKEN')
 admin_id = os.getenv('ADMIN_ID')
+url = f"https://api.telegram.org/bot{token}/deleteWebhook"
+response = requests.get(url)
+print(response.json())
 
 #Загрузка бота
 async def start_bot(bot: Bot):
@@ -29,8 +34,7 @@ async def start_bot(bot: Bot):
 # async def get_start(bot: Bot,m: Message):
     # await bot.send_message(m.from_user.id,f'{m.from_user.id}')
 
-async def get_start(m: Message, bot: Bot):
-    await bot.send_message(m.from_user.id, f'привет {m.from_user.id}', reply_markup=first_kb())
+
 async def link(m: Message, bot: Bot):
     await bot.send_message(m.from_user.id, f'https://aliexpress.ru/', reply_markup=first_kb())
 async def link_gdz(m: Message, bot: Bot):
@@ -48,7 +52,9 @@ async def start():
     #===========DP REGISTERS======================
     dp.startup.register(start_bot)
 
-    dp.message.register(get_start, Command(commands='start'))
+    dp.message.register(core.handlers.basic.get_start, Command(commands='start'))
+    dp.message.register(core.handlers.basic.get_start, F.text == 'главная 🏠')
+    dp.message.register(core.handlers.basic.get_help, Command(commands='help'))
     dp.message.register(link, Command(commands='каталог'))
     dp.message.register(link_gdz, F.text == 'гдз📚')
     dp.message.register(choise_class, F.text == 'решить')
