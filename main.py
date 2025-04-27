@@ -1,4 +1,6 @@
 import asyncio
+import requests
+
 
 import logging #для логирования (отладки)
 
