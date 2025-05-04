@@ -36,6 +36,3 @@ async def answer(m: Message, state: FSMContext):
     if d > 0:
         await m.answer(f'2 корня {(-b + d**0.5)/(2*a)} и {(-b - d**0.5)/(2*a)}', reply_markup=first_kb())
 
-async def choise_class( m:Message):
-    await m.answer('выберите класс', reply_markup=get_inline_kb())
-    # await bot.send_message(m.from_user.id, text='выберите класс',reply_markup=get_inline_kb())

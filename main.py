@@ -4,13 +4,10 @@ import requests
 
 import logging #для логирования (отладки)
 
-from aiogram import Bot, Dispatcher, F
+from aiogram import Bot, Dispatcher, F, types
 from aiogram.types import Message
 from aiogram.client.default import DefaultBotProperties  #редактирование сообщений HTML
 from aiogram.filters import Command
-from core.handlers.solve import A, B, C, answer, choise_class
-from core.utils.solve_FSM import StateForm
-
 import core.handlers.basic
 
 #хранение токенов
@@ -34,10 +31,8 @@ print(response.json())
 
 #Загрузка бота
 async def start_bot(bot: Bot):
-
     await bot.send_message(admin_id, f'start bot')
-# async def get_start(bot: Bot,m: Message):
-    # await bot.send_message(m.from_user.id,f'{m.from_user.id}')
+
 
 
 async def link(m: Message, bot: Bot):
@@ -60,16 +55,27 @@ async def start():
     dp.message.register(core.handlers.basic.get_start, Command(commands='start'))
     dp.message.register(core.handlers.basic.get_start, F.text == 'главная 🏠')
     dp.message.register(core.handlers.basic.get_help, Command(commands='help'))
+
     dp.callback_query.register(core.handlers.grades.grade7.choise_topic_7, F.data.startswith('7grade'))
     dp.callback_query.register(core.handlers.grades.grade8.choise_topic_8, F.data.startswith('8grade'))
     dp.callback_query.register(core.handlers.grades.grade9.choise_topic_9, F.data.startswith('9grade'))
     dp.callback_query.register(core.handlers.grades.grade10.choise_topic_10, F.data.startswith('10grade'))
     dp.callback_query.register(core.handlers.grades.grade11.choise_topic_11, F.data.startswith('11grade'))
-    dp.message.register(link_gdz, F.text == 'гдз📚')
-    dp.message.register(choise_class, F.text == 'решить')
-    dp.message.register(B, StateForm.GET_A)
-    dp.message.register(C, StateForm.GET_B)
-    dp.message.register(answer, StateForm.GET_C)
+
+    dp.callback_query.register(core.handlers.grades.grade7.fcu7, F.data.startswith('fcu7'))
+
+
+    @dp.message(lambda m: m.photo)
+    async def handle_photo(message: types.Message):
+        # Берём file_id фото в наилучшем качестве (последний элемент массива)
+        file_id = message.photo[-1].file_id
+
+        await message.reply(
+            f"🖼 File ID этого фото:\n"
+            f"<code>{file_id}</code>\n\n"
+            f"Размер: {message.photo[-1].file_size // 1024} KB",
+            parse_mode="HTML"
+    )
 
     #==============================================
 
