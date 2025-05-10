@@ -64,9 +64,9 @@ async def start():
 
     dp.callback_query.register(core.handlers.grades.grade7.fcu7, F.data.startswith('fcu7'))
     dp.callback_query.register(core.handlers.grades.grade8.fcu8, F.data.startswith('fcu8'))
-    #dp.callback_query.register(core.handlers.grades.grade9.fcu9, F.data.startswith('fcu9'))
-    #dp.callback_query.register(core.handlers.grades.grade10.fcu10, F.data.startswith('fcu10'))
-    #dp.callback_query.register(core.handlers.grades.grade11.fcu11, F.data.startswith('fcu11'))
+    dp.callback_query.register(core.handlers.grades.grade9.fcu9, F.data.startswith('fcu9'))
+    dp.callback_query.register(core.handlers.grades.grade10.fcu10, F.data.startswith('fcu10'))
+    dp.callback_query.register(core.handlers.grades.grade11.fcu11, F.data.startswith('fcu11'))
 
     @dp.message(lambda m: m.photo)
     async def handle_photo(message: types.Message):
