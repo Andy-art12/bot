@@ -11,4 +11,5 @@ async def choise_topic_11(call: CallbackQuery, bot: Bot):
 
 async def fcu11(call: CallbackQuery, bot: Bot):
     await call.answer()
+    await call.message.answer_photo("AgACAgIAAxkBAAICpWgfXF72kvBMp_dOe70tyZIpCKirAAJ98jEbscP4SPXft7IFC_7eAQADAgADeQADNgQ")
     await call.message.answer_photo("AgACAgIAAxkBAAICjWgfW4Y5lJmfOSTmiP-ZGGQ0YdtFAAJx8jEbscP4SEaebsqGOeGkAQADAgADeQADNgQ",reply_markup=go_back_kb())
